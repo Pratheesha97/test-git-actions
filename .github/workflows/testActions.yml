@@ -1,17 +1,14 @@
 name: Test-Git-Actions
 
-on: 
+on:
   schedule:
-  - cron: '*/2 * * * *'
+    - cron: "*/2 * * * *"
 
 jobs:
-  job1:
-    name: Debug
+  test-context:
+    name: Test Git Context
     runs-on: ubuntu-latest
-
     steps:
-    - name: Git checkout
-      uses: actions/checkout@v2
-      with: { ref: debug }
-    - name: List files
-      run: ls
+      - name: dump github context
+        run: echo '${{ toJSON(github.event.issue) }}' | jq
+        shell: bash
