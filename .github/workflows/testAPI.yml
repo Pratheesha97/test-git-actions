@@ -16,7 +16,6 @@ jobs:
           curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/issues?since=${created}" \
           | jq -r '.[] | [.number, .title, .created_at] | @csv' \
-          | echo "created is: ${created}" \
           | tee /dev/stderr \
           | xargs -I{} echo "issues={}" >>$GITHUB_OUTPUT
           
@@ -29,9 +28,6 @@ jobs:
           
 
       - name: Use the issues
-        run: echo "The issues are ${{ steps.list-all-issues.outputs.issues }}" \
-              | tr ',' '\n' \
-              | sed 's/"//g' \
-              | awk -F ',' '{printf("%-5s%-80s\n", $1, $2)}'
+        run: echo "The issues are ${{ steps.list-all-issues.outputs.issues }}"
                
                
