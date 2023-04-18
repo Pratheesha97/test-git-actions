@@ -2,7 +2,7 @@ name: List Issues
 
 on:
   schedule:
-    - cron: "*/5 * * * *" # Run every Sunday at midnight
+    - cron: "*/2 * * * *"
 
 jobs:
   list-issues:
