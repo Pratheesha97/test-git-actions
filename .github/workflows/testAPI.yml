@@ -9,19 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: List created issues
-        id: list-created-issues
+      - name: List all issues
+        id: list-all-issues
         run: |
-          created=$(date -d "7 days ago" +%Y-%m-%dT%H:%M:%SZ)
+          created=$(date -d "14 days ago" +%Y-%m-%dT%H:%M:%SZ)
           curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/issues?since=${created}" \
-          | jq -r '.[] | [.number, .title] | @csv' \
+          | jq -r '.[] | [.number, .title, .created_at] | @csv' \
           | echo "created is: ${created}" \
           | tee /dev/stderr \
           | xargs -I{} echo "issues={}" >>$GITHUB_OUTPUT
+          
+          
+#       - name: filter created issues
+#         id: filter-created-issues
+#         run: |
+#           created=$(date -d "7 days ago" +%Y-%m-%dT%H:%M:%SZ)
+#         if: ${{ (needs.rules.outputs.branch_name != 'production') && (needs.rules.outputs.branch_name != 'staging') }}
+          
 
       - name: Use the issues
-        run: echo "The issues are ${{ steps.list-issues.outputs.issues }}" \
+        run: echo "The issues are ${{ steps.list-all-issues.outputs.issues }}" \
               | tr ',' '\n' \
               | sed 's/"//g' \
               | awk -F ',' '{printf("%-5s%-80s\n", $1, $2)}'
