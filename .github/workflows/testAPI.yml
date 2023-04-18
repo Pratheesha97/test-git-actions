@@ -1,0 +1,17 @@
+name: List Issues
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # Run every Sunday at midnight
+
+jobs:
+  list-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: List Issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -H "Authorization: token $GITHUB_TOKEN" \
+               "https://api.github.com/repos/${{ github.repository }}/issues
