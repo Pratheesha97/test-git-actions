@@ -9,9 +9,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: List Issues
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: List issues
+        id: list-issues
         run: |
-          curl -H "Authorization: token $GITHUB_TOKEN" \
-               "https://api.github.com/repos/${{ github.repository }}/issues"
+          curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/issues" \
+          | jq '.[].number' \
+          | tr '\n' ',' \
+          | sed 's/,$//' \
+          | tee /dev/stderr \
+          | xargs -I{} echo "::set-output name=issues::{}"
+
+      - name: Use the issues
+        run: echo "The issues are ${{ steps.list-issues.outputs.issues }}"
+               
+               
