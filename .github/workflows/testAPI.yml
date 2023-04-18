@@ -9,18 +9,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: List issues
-        id: list-issues
+      - name: List created issues
+        id: list-created-issues
         run: |
+          created=$(date -d "7 days ago" +%Y-%m-%dT%H:%M:%SZ)
           curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          "https://api.github.com/repos/${{ github.repository }}/issues" \
-          | jq '.[].number' \
-          | tr '\n' ',' \
-          | sed 's/,$//' \
+          "https://api.github.com/repos/${{ github.repository }}/issues?since=${created}" \
+          | jq '.[] | [.number, .title] | @csv' \
           | tee /dev/stderr \
           | xargs -I{} echo "::set-output name=issues::{}"
 
       - name: Use the issues
-        run: echo "The issues are ${{ steps.list-issues.outputs.issues }}"
+        run: echo "The issues are ${{ steps.list-issues.outputs.issues }}" \
+              | tr ',' '\n' \
+              | sed 's/"//g' \
+              | awk -F ',' '{printf("%-5s%-80s\n", $1, $2)}'
                
                
