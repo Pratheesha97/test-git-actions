@@ -7,11 +7,14 @@ import datetime
 repo = os.environ['GITHUB_REPOSITORY']
 owner, name = repo.split('/')
 
+print("owner:", owner, "name:", name)
+
 # Construct the API URL for retrieving issues
 api_url = f'https://api.github.com/repos/{owner}/{name}/issues'
 
 # Set the authentication token if provided
 auth_token = os.environ.get('GITHUB_TOKEN')
+print("github token:", GITHUB_TOKEN)
 headers = {}
 if auth_token:
     headers['Authorization'] = f'token {auth_token}'
