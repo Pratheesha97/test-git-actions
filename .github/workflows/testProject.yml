@@ -1,0 +1,16 @@
+name: Test Python Script
+on: [workflow_dispatch]
+jobs:
+  test-python:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setting up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install PyGithub
+      - name: SLA Implementation
+        run: python sla_implementation.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
