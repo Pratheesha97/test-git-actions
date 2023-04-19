@@ -15,7 +15,7 @@ jobs:
           created=$(date -d "14 days ago" +%Y-%m-%dT%H:%M:%SZ)
           curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/issues?since=${created}" \
-          | jq '.[] | select(.created_at > "'${created}'") | [.number, .title, .created_at] | @csv' \
+          | jq -r '.[] | select(.created_at > "'${created}'") | [.number, .title, .created_at] | @csv' \
           | column -t \
           | xargs -I{} echo "issues={}" >>$GITHUB_OUTPUT
                  
