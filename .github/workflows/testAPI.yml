@@ -25,7 +25,7 @@ jobs:
         run: |
           created=$(date -d "7 days ago" +%Y-%m-%dT%H:%M:%SZ)
           for item in ${{ steps.list-all-issues.outputs.issues }}; do
-            echo "The issue is ${{ steps.list-all-issues.outputs.issues }}"
+            echo "The issue is $item"
             done
           
 
