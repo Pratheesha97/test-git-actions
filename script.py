@@ -12,6 +12,7 @@ api_url = f'https://api.github.com/repos/{owner}/{name}/issues'
 
 # Set the authentication token if provided
 auth_token = os.environ.get('GITHUB_TOKEN')
+print("token:", auth_token)
 headers = {}
 if auth_token:
     headers['Authorization'] = f'token {auth_token}'
