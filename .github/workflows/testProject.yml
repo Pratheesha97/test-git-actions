@@ -12,7 +12,8 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          #!/usr/bin/python
+          export DISPLAY=:0.0
+          
           # Import required modules
           import os
           import requests
