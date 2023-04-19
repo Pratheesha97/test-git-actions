@@ -8,7 +8,7 @@ repo = os.environ['GITHUB_REPOSITORY']
 owner, name = repo.split('/')
 
 # Construct the API URL for retrieving issues
-api_url = f'https://api.github.com/repos/{owner}/{name}/issues
+api_url = f'https://api.github.com/repos/{owner}/{name}/issues'
 
 # Set the authentication token if provided
 auth_token = os.environ.get('GITHUB_TOKEN')
