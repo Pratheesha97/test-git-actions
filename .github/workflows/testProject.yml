@@ -11,9 +11,8 @@ jobs:
       - name: SLA Implementation
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            DISPLAY: :0
         run: |
-          export DISPLAY=:0.0
-          
           # Import required modules
           import os
           import requests
@@ -24,7 +23,7 @@ jobs:
           owner, name = repo.split('/')
 
           # Construct the API URL for retrieving issues
-          api_url = f'https://api.github.com/repos/{owner}/{name}/issues
+          api_url = f'https://api.github.com/repos/{owner}/{name}/issues'
 
           # Set the authentication token if provided
           auth_token = os.environ.get('GITHUB_TOKEN')
