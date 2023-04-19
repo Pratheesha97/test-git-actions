@@ -11,7 +11,7 @@ jobs:
       - name: SLA Implementation
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            DISPLAY: :0
+            DISPLAY: :1
         run: |
           # Import required modules
           import os
