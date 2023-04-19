@@ -7,11 +7,12 @@ jobs:
       - name: Setting up Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.10.6'
+          python-version: '3.x'
       - name: SLA Implementation
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          #!/usr/bin/python
           # Import required modules
           import os
           import requests
