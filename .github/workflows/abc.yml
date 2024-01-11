@@ -22,9 +22,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
-      run: npm install
-
     - name: Node.js CI
       run: |
         # Your Node.js script execution command
