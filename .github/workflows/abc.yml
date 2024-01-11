@@ -31,4 +31,4 @@ jobs:
     - name: Node.js CI
       run: |
         # Your Node.js script execution command
-        node script.js
+        node scripts/script.js
