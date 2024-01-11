@@ -3,7 +3,10 @@
 
 name: Node.js CI
 
-on: [workflow_dispatch]
+on:
+  project_card:
+    types:
+      - moved
 
 jobs:
   build:
